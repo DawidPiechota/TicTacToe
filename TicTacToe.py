@@ -2,7 +2,7 @@
 
 import os
 from random import randint, choice
-clear = lambda: os.system('clear')
+clear = lambda: os.system('cls') # 'clear' for linux
 
 def printBoard(board):
     print ("Board:         Moves:\n")
@@ -33,7 +33,7 @@ def isSpaceFree(board, move):
 def getUserMove(board, char):
     move = ' '
     while move not in '1 2 3 4 5 6 7 8 9'.split() or not isSpaceFree(board, int(move)): # pomysl na .split() z neta
-        move = input("\n" + char + '\'s turn (1-9): ')
+        move = raw_input("\n" + char + '\'s turn (1-9): ')
     board[int(move)-1] = char
 
 def getAIRandomMove(board):
@@ -78,6 +78,14 @@ def getAIMove(board):
                 board[middlePoint] = 'x'
                 return
             else: allMiddlePoints.remove(middlePoint)
+	
+	# zabezpieczenie przed podwojnym zagrozonym polem 2.
+	
+    if('oo' in [board[1] + board[5], board[3] + board[7], board[1] + board[3], board[7] + board[5]]):
+	if(isSpaceFree(board, 4+1)):
+		board[4] = "x"
+		return
+			
 
     
     # priorytet maja rogi
@@ -95,7 +103,7 @@ def playerOrPc():
     clear()
     who = ' '
     while who not in '1 2'.split():
-        who = input('Who are you playing with?\n1- "AI", 2- Another player\n')
+        who = raw_input('Who are you playing with?\n1- "AI", 2- Another player\n')
     clear()
     return who
 
@@ -103,7 +111,7 @@ def whoIsStarting():
     clear()
     who = ' '
     while who not in "1 2".split():
-        who = input('Who goes first?\n1- You, 2- "AI"\n')
+        who = raw_input('Who goes first?\n1- You, 2- "AI"\n')
     clear()
     return who
 
