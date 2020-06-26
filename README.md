@@ -1,2 +1,2 @@
 # TicTacToe
-Simple, unwinnable game of tic tac toe
+Unwinnable game of tic tac toe
